@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "../Common/Header";
+import Footer from "../Common/Footer";
+import Main from "../Common/Main";
 
 const userLayout = () => {
   return (
@@ -7,7 +9,9 @@ const userLayout = () => {
       {/* Header */}
       <Header />
       {/* Main Layout */}
+      <Main/>
       {/* Footer */}
+      <Footer/>
     </>
   );
 };
