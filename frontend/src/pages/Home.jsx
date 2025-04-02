@@ -1,14 +1,12 @@
 import React from "react";
-import Banner from "../assets/Hero4.jpg";
+import Hero from "../components/Layout/Hero";
+import GenderCollection from "../components/Products/GenderCollection";
 
 const Home = () => {
   return (
-    <div className="relative w-full h-screen">
-      <img
-        src={Banner}
-        alt="Hero Banner"
-        className="w-full h-full object-cover"
-      />
+    <div>
+      <Hero/>
+      <GenderCollection/>
     </div>
   );
 };
