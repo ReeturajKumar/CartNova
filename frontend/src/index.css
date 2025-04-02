@@ -5,3 +5,22 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 10s linear infinite;
+}
+
+.paused {
+  animation-play-state: paused;
+}
