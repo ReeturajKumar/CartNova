@@ -50,6 +50,7 @@ const Footer = () => {
           </button>
         </div>
       </div>
+      <br />
 
       {/* Main Footer (With Proper Spacing) */}
       <div className="bg-[#F0F0F0] w-full mx-auto pt-16 pb-6 px-6 sm:pt-20 md:pt-36">
