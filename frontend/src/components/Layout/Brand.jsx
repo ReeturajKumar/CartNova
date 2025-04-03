@@ -23,7 +23,7 @@ const Brand = () => {
               key={index}
               src={img}
               alt={`Brand Logo ${index + 1}`}
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 object-contain transition-transform hover:scale-110 duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 object-contain shrink-0"
             />
           ))}
         </div>

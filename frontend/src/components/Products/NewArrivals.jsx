@@ -63,8 +63,7 @@ const NewArrivals = () => {
           Explore New Arrivals
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8">
-          Discover the latest fashion trends off the runway, designed to elevate
-          your style and make you stand out.
+        Discover trendy runway styles to elevate your look and stand out.
         </p>
 
         {/* Navigation Buttons */}
