@@ -6,7 +6,7 @@ import img3 from "../../assets/Bs3.jpg";
 const selectedProduct = {
   name: "Men's Cotton Slim Fit T-Shirt",
   size: ["S", "M", "L", "XL"],
-  color: ["Red", "Black", "White"],
+  color: ["Red", "Black"],
   brand: "H&M",
   material: "Cotton",
   quantity: 1,
@@ -17,17 +17,28 @@ const selectedProduct = {
     { url: img2, alt: "Shirt" },
     { url: img3, alt: "Shirt" },
   ],
-  desc: "Redefine your style with our premium cotton shirt, blending comfort and sophistication. Designed for a modern fit, it offers the perfect balance of smart and casual. The breathable, lightweight fabric ensures all-day ease, while fine stitching adds durability. Ideal for work, social events, or casual outings.",
+  desc: "Redefine your style with our premium cotton shirt, crafted for those who appreciate comfort and sophistication. Designed with a modern fit, this shirt offers a perfect balance between smart and casual. The breathable, lightweight fabric ensures all-day ease, while the fine stitching guarantees durability. Whether you're heading to work, a social event, or a casual outing, this versatile piece adapts effortlessly to any occasion.",
 };
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (selectedProduct?.image?.length > 0) {
       setMainImage(selectedProduct.image[0].url);
     }
   }, []);
+
+
+  const handlesetQuantity = (value) => {
+    if (value === "plus") setQuantity((prev) => prev + 1);
+    if (value === "minus" && quantity > 1)
+      setQuantity((prev) => prev - 1);
+  };
 
   return (
     <div className="p-4 sm:p-6">
@@ -94,7 +105,12 @@ const ProductDetails = () => {
                 {selectedProduct.color.map((color) => (
                   <button
                     key={color}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border cursor-pointer"
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border cursor-pointer ${
+                      selectedColor === color
+                        ? "border-5 border-gray-300"
+                        : "border-transparent"
+                    }`}
                     style={{ backgroundColor: color.toLowerCase() }}
                   />
                 ))}
@@ -108,7 +124,12 @@ const ProductDetails = () => {
                 {selectedProduct.size.map((size) => (
                   <button
                     key={size}
-                    className="border px-3 sm:px-4 py-2 rounded-md cursor-pointer"
+                    onClick={() => setSelectedSize(size)}
+                    className={`border px-3 sm:px-4 py-2 rounded-md cursor-pointer ${
+                      selectedSize === size
+                        ? "bg-black text-white"
+                        : "bg-gray-200 text-gray-700"
+                    }`}
                   >
                     {size}
                   </button>
@@ -120,11 +141,15 @@ const ProductDetails = () => {
             <div className="mb-6">
               <p className="text-gray-700 font-semibold">Quantity:</p>
               <div className="flex items-center space-x-2 mt-2">
-                <button className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer">
+                <button className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer"
+                onClick={() => handlesetQuantity("minus")}
+                >
                   -
                 </button>
-                <span className="text-gray-700 text-lg">1</span>
-                <button className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer">
+                <span className="text-gray-700 text-lg">{quantity}</span>
+                <button className="bg-gray-200 px-4 py-2 rounded-md cursor-pointer"
+                onClick={() => handlesetQuantity("plus")}
+                >
                   +
                 </button>
               </div>

@@ -23,7 +23,7 @@ const CartDrawer = ({open,toggleCartDrawer}) => {
 
       {/* checkout button */}
       <div className="p-4 bg-white sticky bottom-0">
-        <button className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-[#9A9A9A] transition-colors duration-300 hover:text-black cursor-pointer' >Go to Checkout</button>
+        <button className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer' >Go to Checkout</button>
         <p className='text-xs tracking-tight text-gray-500 mt-2 text-center'>
           Shipping, taxes and discounts calculated at checkout
         </p>
