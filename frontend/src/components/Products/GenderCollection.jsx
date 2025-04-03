@@ -18,12 +18,14 @@ const GenderCollection = () => {
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Women's Collection */}
-        <div className="relative w-full">
-          <img
-            src={img2}
-            alt="Women's Collection"
-            className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover"
-          />
+        <div className="relative w-full group">
+          <div className="overflow-hidden rounded-lg">
+            <img
+              src={img2}
+              alt="Women's Collection"
+              className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
+            />
+          </div>
           <div className="absolute bottom-6 left-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md">
             <h2 className="text-3xl font-semibold text-gray-900 mb-2">
               Timeless Elegance
@@ -41,12 +43,14 @@ const GenderCollection = () => {
         </div>
 
         {/* Men's Collection */}
-        <div className="relative w-full">
-          <img
-            src={img1}
-            alt="Men's Collection"
-            className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover"
-          />
+        <div className="relative w-full group">
+          <div className="overflow-hidden rounded-lg">
+            <img
+              src={img1}
+              alt="Men's Collection"
+              className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
+            />
+          </div>
           <div className="absolute bottom-6 left-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md">
             <h2 className="text-3xl font-semibold text-gray-900 mb-2">
               Bold & Sophisticated

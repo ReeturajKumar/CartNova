@@ -1,5 +1,6 @@
 import React from "react";
 import Banner from "../../assets/Hero4.jpg";
+import Brand from "./Brand";
 
 const Hero = () => {
   return (
@@ -9,6 +10,7 @@ const Hero = () => {
         alt="Hero Banner"
         className="w-full h-full object-cover"
       />
+            <Brand/>
     </div>
   );
 };

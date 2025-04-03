@@ -15,15 +15,15 @@ const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 const Brand = () => {
   return (
     <div className="bg-black py-6 flex justify-center overflow-hidden">
-      <div className="w-7xl overflow-hidden relative group cursor-pointer">
+      <div className="w-full max-w-7xl overflow-hidden relative">
         {/* Infinite Scrolling Wrapper */}
-        <div className="flex gap-10 animate-scroll group-hover:paused">
+        <div className="flex gap-8 sm:gap-10 animate-scroll group-hover:pause-animation">
           {[...images, ...images].map((img, index) => (
             <img
               key={index}
               src={img}
               alt={`Brand Logo ${index + 1}`}
-              className="w-24 h-24 object-contain"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 object-contain transition-transform hover:scale-110 duration-300"
             />
           ))}
         </div>

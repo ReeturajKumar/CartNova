@@ -6,6 +6,7 @@
   font-style: normal;
 }
 
+
 @keyframes scroll {
   from {
     transform: translateX(0);
@@ -15,12 +16,24 @@
   }
 }
 
+/* Apply animation */
 .animate-scroll {
   display: flex;
   white-space: nowrap;
-  animation: scroll 10s linear infinite;
+  animation: scroll 15s linear infinite;
 }
 
-.paused {
-  animation-play-state: paused;
+/* Pause animation when hovered */
+.pause-animation {
+  animation-play-state: paused !important;
 }
+
+.custom-scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+.custom-scrollbar-hide {
+  -ms-overflow-style: none;  /* Hide scrollbar for IE/Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+
