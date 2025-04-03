@@ -61,8 +61,8 @@ const Footer = () => {
               <img src="/logo2.png" alt="" />
             </div>
             <p className="mt-2 text-sm text-gray-600">
-              A futuristic, sleek, and modern e-commerce brand with
-              innovation-driven design.
+              A futuristic, sleek, and modern <br /> e-commerce brand with
+              innovation driven design.
             </p>
             <div className="flex space-x-4 mt-4 text-gray-500 flex-wrap">
               <a href="#">
