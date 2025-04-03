@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import img1 from "../../assets/BS1.avif";
 import img2 from "../../assets/BS2.jpg";
 import img3 from "../../assets/Bs3.jpg";
+import img4 from "../../assets/RP1.jpeg";
+import img5 from "../../assets/RP2.jpeg";
+import img6 from "../../assets/RP3.avif";
+import img7 from "../../assets/RP4.avif";
 import { toast } from "sonner";
+import ProductGrid from "./ProductGrid";
 
 const selectedProduct = {
   name: "Men's Cotton Slim Fit T-Shirt",
@@ -20,6 +25,38 @@ const selectedProduct = {
   ],
   desc: "Redefine your style with our premium cotton shirt, crafted for those who appreciate comfort and sophistication. Designed with a modern fit, this shirt offers a perfect balance between smart and casual. The breathable, lightweight fabric ensures all-day ease, while the fine stitching guarantees durability.",
 };
+
+
+const similarProducts = [
+  {
+    _id: 1,
+    name: "Stylish Jacket",
+    price: 10000,
+    images: [{ url: img4 }],
+    discountPrice: 5000,
+  },
+  {
+    _id: 2,
+    name: "Stylish Pant",
+    price: 10000,
+    images: [{ url: img5 }],
+    discountPrice: 5000,
+  },
+  {
+    _id: 2,
+    name: "Stylish Jeans",
+    price: 10000,
+    images: [{ url: img6 }],
+    discountPrice: 5000,
+  },
+  {
+    _id: 4,
+    name: "Stylish Shirt",
+    price: 10000,
+    images: [{ url: img7 }],
+    discountPrice: 5000,
+  },
+]
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
@@ -75,14 +112,15 @@ const ProductDetails = () => {
 
           {/* Product Image */}
           <div className="md:w-1/2">
-            <div className="relative w-full h-auto sm:h-[500px] md:h-[850px] lg:h-[800px] overflow-hidden rounded-lg">
-              <img
-                src={mainImage}
-                alt={selectedProduct.image[0].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+  <div className="relative w-full h-auto sm:h-[500px] md:h-[850px] lg:h-[700px] overflow-hidden rounded-lg group">
+    <img
+      src={mainImage}
+      alt={selectedProduct.image[0].alt}
+      className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
+    />
+  </div>
+</div>
+
 
           {/* Thumbnails: Mobile (Horizontal Scroll) */}
           <div className="md:hidden flex overflow-x-auto space-x-4 mt-4">
@@ -91,7 +129,7 @@ const ProductDetails = () => {
                 key={index}
                 src={image.url}
                 alt={image.alt}
-                className={`w-16 h-16 object-cover rounded-lg cursor-pointer ${
+                className={`w-16 h-16 object-cover rounded-lg transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer ${
                   mainImage === image.url ? "border-5 border-black" : ""
                 }`}
                 onClick={() => setMainImage(image.url)}
@@ -209,6 +247,14 @@ const ProductDetails = () => {
               </table>
             </div>
           </div>
+
+
+        </div>
+
+        <div className="mt-20">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-4 mt-20">Related Products - You May Also Like</h2>
+          <p className="text-base text-center sm:text-lg lg:text-xl text-gray-600 mb-8">Explore similar products handpicked just for you – shop now!</p>
+          <ProductGrid products={similarProducts}/>
         </div>
       </div>
     </div>
