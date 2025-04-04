@@ -7,6 +7,7 @@ import NewArrivalsSection from "../components/Products/NewArrivals";
 import ProductDetails from "../components/Products/ProductDetails";
 import ProductGrid from "../components/Products/ProductGrid";
 import WomenSection from "../components/Products/WomenSection";
+import FeaturedCollection from "../components/Products/FeaturedCollection";
 
 const Home = () => {
   return (
@@ -31,6 +32,7 @@ const Home = () => {
         <p className="text-base text-center sm:text-lg lg:text-xl text-gray-600 mb-8 ">Stay stylish, comfortable, and confident with our trendy tops, perfect for every season!</p>
         <WomenSection />
       </div>
+      <FeaturedCollection/>
     </div>
   );
 };
