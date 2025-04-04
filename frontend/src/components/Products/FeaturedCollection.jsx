@@ -3,6 +3,11 @@ import img1 from "../../assets/F1.webp";
 import img2 from "../../assets/F2.jpg";
 import img3 from "../../assets/F3.webp";
 import img4 from "../../assets/F4.jpg";
+import { MdWorkspacePremium } from "react-icons/md";
+import { FaShippingFast } from "react-icons/fa";
+import { LiaPlaneArrivalSolid } from "react-icons/lia";
+import { MdVerifiedUser } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 const FeaturedCollection = () => {
   return (
@@ -16,7 +21,7 @@ const FeaturedCollection = () => {
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             Elevate Your Style with This Week’s Top Picks
           </h2>
-          <p className="text-gray-500 italic text-xl mb-4">
+          <p className="text-gray-800 italic text-xl mb-4">
             "Style isn’t just fashion, it’s a statement."
           </p>
           <p className="text-lg text-gray-600 mb-6">
@@ -27,19 +32,27 @@ const FeaturedCollection = () => {
           {/* Feature Highlights */}
           <div className="grid grid-cols-2 gap-4 mb-6 text-left">
             <div className="flex items-center gap-3">
-              <span className="text-white text-2xl">🆕</span>
+              <span className="text-black text-2xl">
+                <LiaPlaneArrivalSolid className="h-6 w-6"/>
+              </span>
               <span className="text-gray-600 font-medium">New Arrivals</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-white text-2xl">✨</span>
+              <span className="text-black text-2xl">
+                <MdWorkspacePremium className="h-6 w-6" />
+              </span>
               <span className="text-gray-600 font-medium">Premium Quality</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-white text-2xl">🚚</span>
+              <span className="text-black text-2xl">
+                <FaShippingFast className="h-6 w-6"/>
+              </span>
               <span className="text-gray-600 font-medium">Fast Shipping</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-white text-2xl">✅</span>
+              <span className="text-black text-2xl">
+                <MdVerifiedUser className="h-6 w-6"/>
+              </span>
               <span className="text-gray-600 font-medium">Trusted Brands</span>
             </div>
           </div>
@@ -56,9 +69,11 @@ const FeaturedCollection = () => {
             </div>
           </div>
 
+          <Link to="/collections/all">
           <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer">
             Shop the Collection
           </button>
+          </Link>
         </div>
 
         {/* Image Section with Creative Layout */}

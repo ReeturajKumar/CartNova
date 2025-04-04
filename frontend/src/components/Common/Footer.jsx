@@ -30,7 +30,7 @@ const Footer = () => {
         {/* Left Side - Text Content */}
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl md:text-3xl font-semibold">
-            Join Our Newsletter 🎉
+            Join Our Newsletter
           </h2>
           <p className="text-gray-300 text-sm md:text-base max-w-lg mt-2">
             Subscribe to get updates on our latest products, exclusive offers,

@@ -26,7 +26,6 @@ const selectedProduct = {
   desc: "Redefine your style with our premium cotton shirt, crafted for those who appreciate comfort and sophistication. Designed with a modern fit, this shirt offers a perfect balance between smart and casual. The breathable, lightweight fabric ensures all-day ease, while the fine stitching guarantees durability.",
 };
 
-
 const similarProducts = [
   {
     _id: 1,
@@ -43,7 +42,7 @@ const similarProducts = [
     discountPrice: 5000,
   },
   {
-    _id: 2,
+    _id: 3,
     name: "Stylish Jeans",
     price: 10000,
     images: [{ url: img6 }],
@@ -56,7 +55,7 @@ const similarProducts = [
     images: [{ url: img7 }],
     discountPrice: 5000,
   },
-]
+];
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
@@ -78,31 +77,28 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {
-      toast.error("Please select size and color", {
-        duration: 1000,
-      });
+      toast.error("Please select size and color", { duration: 1000 });
       return;
     }
     setIsButtonDisabled(true);
     setTimeout(() => {
-      toast.success("Product added to cart", {
-        duration: 1000,
-      });
+      toast.success("Product added to cart", { duration: 1000 });
       setIsButtonDisabled(false);
     }, 500);
   };
+
   return (
     <div className="p-4 sm:p-6">
       <div className="max-w-6xl mx-auto bg-white p-6 sm:p-8 rounded-lg">
         <div className="flex flex-col md:flex-row">
-          {/* Left Section: Product Thumbnails (Desktop) */}
+          {/* Left Section - Thumbnails */}
           <div className="hidden md:flex flex-col space-y-4 mr-6">
             {selectedProduct.image.map((image, index) => (
               <img
                 key={index}
                 src={image.url}
                 alt={image.alt}
-                className={`w-20 h-20 lg:w-20 lg:h-20 object-cover rounded-lg cursor-pointer ${
+                className={`w-20 h-20 object-cover rounded-lg cursor-pointer ${
                   mainImage === image.url ? "border-5 border-black" : ""
                 }`}
                 onClick={() => setMainImage(image.url)}
@@ -112,24 +108,23 @@ const ProductDetails = () => {
 
           {/* Product Image */}
           <div className="md:w-1/2">
-  <div className="relative w-full h-auto sm:h-[500px] md:h-[850px] lg:h-[700px] overflow-hidden rounded-lg group">
-    <img
-      src={mainImage}
-      alt={selectedProduct.image[0].alt}
-      className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
-    />
-  </div>
-</div>
+            <div className="relative w-full h-auto sm:h-[500px] md:h-[850px] lg:h-[700px] overflow-hidden rounded-lg group">
+              <img
+                src={mainImage}
+                alt={selectedProduct.image[0].alt}
+                className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
+              />
+            </div>
+          </div>
 
-
-          {/* Thumbnails: Mobile (Horizontal Scroll) */}
+          {/* Mobile Thumbnails */}
           <div className="md:hidden flex overflow-x-auto space-x-4 mt-4">
             {selectedProduct.image.map((image, index) => (
               <img
                 key={index}
                 src={image.url}
                 alt={image.alt}
-                className={`w-16 h-16 object-cover rounded-lg transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer ${
+                className={`w-16 h-16 object-cover rounded-lg cursor-pointer ${
                   mainImage === image.url ? "border-5 border-black" : ""
                 }`}
                 onClick={() => setMainImage(image.url)}
@@ -137,28 +132,25 @@ const ProductDetails = () => {
             ))}
           </div>
 
-          {/* Right Section: Product Details */}
+          {/* Right Details Section */}
           <div className="md:w-1/2 md:ml-10 mt-6 md:mt-0">
-            {/* Product Name */}
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold mb-2">
               {selectedProduct.name}
             </h1>
 
-            {/* Pricing */}
             <p className="text-md sm:text-lg text-gray-600 line-through">
               {selectedProduct.orignalPrice &&
                 `$${selectedProduct.orignalPrice}`}
             </p>
+
             <p className="text-lg sm:text-2xl font-semibold text-gray-700 mb-3">
               ${selectedProduct.price}
             </p>
 
-            {/* Description */}
             <p className="text-sm sm:text-base text-gray-600 mb-4">
               {selectedProduct.desc}
             </p>
 
-            {/* Color Selection */}
             <div className="mb-4">
               <p className="text-gray-700 font-semibold">Color:</p>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -177,7 +169,6 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Size Selection */}
             <div className="mb-4">
               <p className="text-gray-700 font-semibold">Size:</p>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -197,7 +188,6 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Quantity Selector */}
             <div className="mb-6">
               <p className="text-gray-700 font-semibold">Quantity:</p>
               <div className="flex items-center space-x-2 mt-2">
@@ -219,7 +209,6 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
               disabled={isButtonDisabled}
@@ -230,7 +219,7 @@ const ProductDetails = () => {
               {isButtonDisabled ? "Adding to Cart..." : "Add to Cart"}
             </button>
 
-            {/* Characteristics Table */}
+            {/* Characteristics */}
             <div className="mt-6 text-gray-700">
               <h3 className="text-lg font-bold mb-2">Characteristics:</h3>
               <table className="w-full text-left text-sm sm:text-base">
@@ -247,14 +236,17 @@ const ProductDetails = () => {
               </table>
             </div>
           </div>
-
-
         </div>
 
+        {/* Related Products */}
         <div className="mt-20">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-4 mt-20">Related Products - You May Also Like</h2>
-          <p className="text-base text-center sm:text-lg lg:text-xl text-gray-600 mb-8">Explore similar products handpicked just for you – shop now!</p>
-          <ProductGrid products={similarProducts}/>
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-4 mt-20">
+            Related Products - You May Also Like
+          </h2>
+          <p className="text-base text-center sm:text-lg lg:text-xl text-gray-600 mb-8">
+            Explore similar products handpicked just for you – shop now!
+          </p>
+          <ProductGrid products={similarProducts} />
         </div>
       </div>
     </div>
