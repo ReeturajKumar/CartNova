@@ -7,14 +7,15 @@ const GenderCollection = () => {
   return (
     <section className="max-w-7xl mx-auto py-16 px-4 lg:px-0 text-center">
       {/* Section Heading */}
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold text-gray-900">
-          Discover Your Signature Style
-        </h1>
-        <p className="text-lg text-gray-600 mt-2">
-          Curated Collections for Men & Women - Elevate Your Wardrobe
-        </p>
-      </div>
+      <div className="mb-12 text-center px-4 sm:px-6 md:px-8 lg:px-12">
+  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-snug">
+    Discover Your Signature Style
+  </h1>
+  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mt-2 sm:mt-3">
+    Curated Collections for Men & Women – Elevate Your Wardrobe
+  </p>
+</div>
+
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Women's Collection */}
