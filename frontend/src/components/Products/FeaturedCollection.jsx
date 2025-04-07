@@ -7,7 +7,7 @@ import { MdWorkspacePremium } from "react-icons/md";
 import { FaShippingFast } from "react-icons/fa";
 import { LiaPlaneArrivalSolid } from "react-icons/lia";
 import { MdVerifiedUser } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const FeaturedCollection = () => {
   return (
@@ -18,9 +18,10 @@ const FeaturedCollection = () => {
           <h3 className="text-lg font-semibold text-gray-600 uppercase mb-3 tracking-widest">
             Featured Collection
           </h3>
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-gray-900 mb-3 sm:mb-4 leading-snug sm:leading-tight">
             Elevate Your Style with This Week’s Top Picks
           </h2>
+
           <p className="text-gray-800 italic text-xl mb-4">
             "Style isn’t just fashion, it’s a statement."
           </p>
@@ -33,7 +34,7 @@ const FeaturedCollection = () => {
           <div className="grid grid-cols-2 gap-4 mb-6 text-left">
             <div className="flex items-center gap-3">
               <span className="text-black text-2xl">
-                <LiaPlaneArrivalSolid className="h-6 w-6"/>
+                <LiaPlaneArrivalSolid className="h-6 w-6" />
               </span>
               <span className="text-gray-600 font-medium">New Arrivals</span>
             </div>
@@ -45,13 +46,13 @@ const FeaturedCollection = () => {
             </div>
             <div className="flex items-center gap-3">
               <span className="text-black text-2xl">
-                <FaShippingFast className="h-6 w-6"/>
+                <FaShippingFast className="h-6 w-6" />
               </span>
               <span className="text-gray-600 font-medium">Fast Shipping</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-black text-2xl">
-                <MdVerifiedUser className="h-6 w-6"/>
+                <MdVerifiedUser className="h-6 w-6" />
               </span>
               <span className="text-gray-600 font-medium">Trusted Brands</span>
             </div>
@@ -70,9 +71,9 @@ const FeaturedCollection = () => {
           </div>
 
           <Link to="/collections/all">
-          <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer">
-            Shop the Collection
-          </button>
+            <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer">
+              Shop the Collection
+            </button>
           </Link>
         </div>
 

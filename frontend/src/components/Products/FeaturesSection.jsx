@@ -35,7 +35,7 @@ const FeaturesSection = () => {
            
             className="flex flex-col items-center text-center p-6 rounded-lg"
           >
-            <div className="p-4 bg-blue-100 rounded-full mb-4">{feature.icon}</div>
+            <div className="p-4 bg-gray-100 rounded-full mb-4">{feature.icon}</div>
             <h4 className="text-lg font-semibold uppercase tracking-wide mb-2">
               {feature.title}
             </h4>

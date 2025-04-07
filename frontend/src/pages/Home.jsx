@@ -17,16 +17,15 @@ const Home = () => {
       <GenderCollection />
       <NewArrivals />
 
-      <h2
-     
-      className="text-3xl font-bold text-center text-gray-900 mb-4 mt-20">
-        Best Sellers of the Week - New Arrivals
-      </h2>
-      <p 
-      
-      className="text-base text-center sm:text-lg lg:text-xl text-gray-600 ">
-        Hottest trends of the week—shop bestsellers before they’re gone!
-      </p>
+      <div className="px-4 sm:px-0">
+  <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 sm:mb-4 mt-16 sm:mt-20">
+    Best Sellers of the Week - New Arrivals
+  </h2>
+  <p className="text-sm sm:text-base lg:text-xl text-center text-gray-600">
+    Hottest trends of the week—shop bestsellers before they’re gone!
+  </p>
+</div>
+
       <ProductDetails />
 
 
@@ -43,16 +42,15 @@ const Home = () => {
       </div>
       <FeaturedCollection/>
 
-      <h2 
-      
-      className="text-3xl font-bold text-center text-gray-900 mb-4 mt-8">
-      Why Shop With Us – Benefits You Can Trust
-      </h2>
-      <p 
-      
-      className="text-base text-center sm:text-lg lg:text-xl text-gray-600 ">
-      Enjoy secure payments, fast delivery, and stress-free returns always
-      </p>
+      <div className="px-4 sm:px-0">
+  <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 sm:mb-4 mt-10 sm:mt-8">
+    Why Shop With Us – Benefits You Can Trust
+  </h2>
+  <p className="text-sm sm:text-base lg:text-xl text-center text-gray-600">
+    Enjoy secure payments, fast delivery, and stress-free returns always
+  </p>
+</div>
+
       <FeaturesSection/>
     </div>
   );

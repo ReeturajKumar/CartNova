@@ -27,46 +27,48 @@ const GenderCollection = () => {
               className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
             />
           </div>
-          <div className="absolute bottom-6 left-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-2">
-              Timeless Elegance
-            </h2>
-            <p className="text-gray-700 text-sm mb-2">
-              Discover chic and trendy fashion designed for modern women.
-            </p>
-            <Link
-              to="/collections/all?gender=women"
-              className="text-gray-900 font-medium hover:underline"
-            >
-              Shop Women's Collection →
-            </Link>
-          </div>
+          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white bg-opacity-90 p-3 sm:p-4 rounded-md shadow-md w-[90%] sm:w-auto">
+  <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-1 sm:mb-2">
+    Timeless Elegance
+  </h2>
+  <p className="text-gray-700 text-sm mb-1 sm:mb-2">
+    Discover chic and trendy fashion designed for modern women.
+  </p>
+  <Link
+    to="/collections/all?gender=women"
+    className="text-gray-900 text-sm sm:text-base font-medium hover:underline"
+  >
+    Shop Women's Collection →
+  </Link>
+</div>
+
         </div>
 
         {/* Men's Collection */}
         <div className="relative w-full group">
-          <div className="overflow-hidden rounded-lg">
-            <img
-              src={img1}
-              alt="Men's Collection"
-              className="w-full min-h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
-            />
-          </div>
-          <div className="absolute bottom-6 left-6 bg-white bg-opacity-90 p-4 rounded-md shadow-md">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-2">
-              Bold & Sophisticated
-            </h2>
-            <p className="text-gray-700 text-sm mb-2">
-              Elevate your wardrobe with styles crafted for confidence.
-            </p>
-            <Link
-              to="/collections/all?gender=men"
-              className="text-gray-900 font-medium hover:underline"
-            >
-              Shop Men's Collection →
-            </Link>
-          </div>
-        </div>
+  <div className="overflow-hidden rounded-lg">
+    <img
+      src={img1}
+      alt="Men's Collection"
+      className="w-full min-h-[400px] sm:min-h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
+    />
+  </div>
+  <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white bg-opacity-90 p-3 sm:p-4 rounded-md shadow-md w-[90%] sm:w-auto">
+    <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-1 sm:mb-2">
+      Bold & Sophisticated
+    </h2>
+    <p className="text-gray-700 text-sm mb-1 sm:mb-2">
+      Elevate your wardrobe with styles crafted for confidence.
+    </p>
+    <Link
+      to="/collections/all?gender=men"
+      className="text-gray-900 text-sm sm:text-base font-medium hover:underline"
+    >
+      Shop Men's Collection →
+    </Link>
+  </div>
+</div>
+
       </div>
     </section>
   );
