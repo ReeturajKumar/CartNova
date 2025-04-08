@@ -111,16 +111,16 @@ const SignupPage = () => {
           </div>
 
           <div className="flex gap-4 justify-center">
-            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-              <FaFacebookF className="text-blue-600" />
-            </button>
-            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-              <FaGoogle className="text-red-500" />
-            </button>
-            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-              <FaApple className="text-gray-800" />
-            </button>
-          </div>
+                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+                        <FaFacebookF className="text-gray-900" />
+                      </button>
+                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+                        <FaGoogle className="text-gray-900" />
+                      </button>
+                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+                        <FaApple className="text-gray-900" />
+                      </button>
+                    </div>
         </div>
       </div>
     </div>
