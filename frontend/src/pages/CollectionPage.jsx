@@ -68,16 +68,20 @@ const CollectionPage = () => {
   
     {/* Sidebar */}
     <div
-      ref={sidebarRef}
-      className={`
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
-        fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto 
-        transition-transform duration-300 ease-in-out lg:static
-        lg:translate-x-0
-      `}
-    >
-      <FilterSIdebar />
-    </div>
+  ref={sidebarRef}
+  className={`
+    ${isSidebarOpen ? 'translate-x-0 z-50' : '-translate-x-full'} 
+    fixed inset-y-0 left-0 w-64 bg-white 
+    transition-transform duration-300 ease-in-out
+    overflow-y-auto scrollbar-hide
+    lg:translate-x-0 lg:static lg:z-auto
+
+    
+  `}
+>
+  <FilterSIdebar />
+</div>
+
     <div className='flex-grow p-4'>
       <h2 className="text-2xl uppercase mb-4 font-bold">All Collection</h2>
 

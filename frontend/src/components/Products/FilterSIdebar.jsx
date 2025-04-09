@@ -101,7 +101,16 @@ const FilterSIdebar = () => {
     });
     setSearchParams(params);
     naviagate(`?${params.toString()}`);
+  };
+
+
+  const handlePriceChange = (e) => {
+    const newPrice = e.target.value;
+    setPriceRange([50, newPrice]);
+    const newFilters = { ...filters, minPrice: 50, maxPrice: newPrice };
+    updateURLParams(newFilters);
   }
+
 
 
 
@@ -226,7 +235,8 @@ const FilterSIdebar = () => {
           name="priceRange"
           min={50}
           max={25000}
-         
+         value={priceRange[1]}
+         onChange={handlePriceChange}
           className="w-full h-2 bg-gray-300 rounded-lg  appearance-none cursor-pointer"
         />
         <div className="flex justify-between text-gray-600 mt-2">
