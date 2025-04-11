@@ -234,9 +234,6 @@ const CheckOut = () => {
                   <p className="font-medium">{product.name}</p>
                   <p className="text-gray-500">Size: {product.size}</p>
                   <p className="text-gray-500">Color: {product.color}</p>
-                  <p className="text-gray-400 text-xs">
-                    Est. Delivery: Apr 16 - Apr 18
-                  </p>
                 </div>
               </div>
               <div className="text-right">
