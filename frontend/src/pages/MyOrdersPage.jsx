@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import img1 from '../assets/BS1.avif';
 import img2 from '../assets/D1.png';
+import { useNavigate } from 'react-router-dom';
 
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     setTimeout(() => {
       const mockOrders = [
         // Uncomment these to test with orders:
         {
-          id: 1,
+          _id: 1,
           createdAt: new Date(),
           shippingAddress: { city: 'Delhi', country: 'India' },
-          orderItems: [{ name: 'Stylish Jacket', images: img1 }],
+          orderItems: [{ name: 'Stylish Jacket', images: "https://picsum.photos/200?random=2" }],
           totalPrice: 1000,
           isPaid: true,
           isDelivered: true,
         },
         {
-          id: 2,
+          _id: 2,
           createdAt: new Date(),
           shippingAddress: { city: 'Delhi', country: 'India' },
-          orderItems: [{ name: 'Stylish Jacket', images: img1 }],
+          orderItems: [{ name: 'Stylish Jacket', images: "https://picsum.photos/200?random=1" }],
           totalPrice: 1000,
           isPaid: true,
           isDelivered: false,
@@ -34,6 +36,12 @@ const MyOrdersPage = () => {
       setLoading(false);
     }, 1000);
   }, []);
+
+  
+
+  const handleRowClick = (orderId) => {
+   navigate(`/order/${orderId}`);
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
@@ -74,7 +82,9 @@ const MyOrdersPage = () => {
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr key={order.id} className="border-t border-gray-100 hover:bg-gray-50 transition">
+                <tr key={order._id} 
+                onClick={() => handleRowClick(order._id)}
+                className="border-t border-gray-100 hover:bg-gray-50 transition">
                   <td className="py-3 px-4">
                     <img
                       src={order.orderItems[0].images}
@@ -82,7 +92,7 @@ const MyOrdersPage = () => {
                       className="w-12 h-12 object-cover rounded-full"
                     />
                   </td>
-                  <td className="py-3 px-4 text-sm font-medium text-gray-800">#{order.id}</td>
+                  <td className="py-3 px-4 text-sm font-medium text-gray-800">#{order._id}</td>
                   <td className="py-3 px-4 text-sm text-gray-600">
                     {order.createdAt.toLocaleDateString()}
                   </td>
