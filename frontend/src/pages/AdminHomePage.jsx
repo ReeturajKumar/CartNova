@@ -105,13 +105,13 @@ const AdminHomePage = () => {
       <div className="mt-6">
         <h2 className="text-2xl font-semibold mb-4">Latest Orders</h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-100">
+          <table className="min-w-full divide-y divide-gray-100">
+            <thead className="bg-gray-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Order ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">User</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Total Price</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Status</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
