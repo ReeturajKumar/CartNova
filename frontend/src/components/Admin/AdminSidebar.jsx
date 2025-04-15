@@ -12,7 +12,7 @@ const AdminSidebar = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-between p-6">
+    <div className="fixed left-0 top-0 h-full w-64 bg-white shadow-lg flex flex-col justify-between p-6 z-50">
       <div>
         <div className="mb-6">
           <Link to="/admin-panel" className="text-2xl font-bold">
