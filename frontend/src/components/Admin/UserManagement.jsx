@@ -173,7 +173,7 @@ const UserManagement = () => {
 
       {/* User Table */}
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="min-w-full text-left text-gray-900\">
+          <table className="min-w-full text-left text-gray-900">
             <thead className="bg-gray-300 text-xs uppercase text-gray-700">
               <tr>
                 <th className="py-3 px-4">
@@ -192,7 +192,7 @@ const UserManagement = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
               {currentUsers.map((user) => (
-                <tr key={user._id}>
+                <tr key={user._id} className="hover:bg-gray-50 cursor-pointer">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {user.name}
                   </td>
@@ -226,7 +226,7 @@ const UserManagement = () => {
             <button
               onClick={handlePrevious}
               disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 text-sm font-medium rounded disabled:opacity-50"
+              className="px-4 py-2 bg-gray-200 text-sm font-medium rounded disabled:opacity-50 cursor-pointer"
             >
               Previous
             </button>
@@ -236,7 +236,7 @@ const UserManagement = () => {
             <button
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-200 text-sm font-medium rounded disabled:opacity-50"
+              className="px-4 py-2 bg-gray-200 text-sm font-medium rounded disabled:opacity-50 cursor-pointer"
             >
               Next
             </button>

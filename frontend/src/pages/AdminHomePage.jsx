@@ -123,7 +123,7 @@ const AdminHomePage = () => {
                 </tr>
               ) : (
                 currentOrders.map(order => (
-                  <tr key={order._id}>
+                  <tr key={order._id}  className="hover:bg-gray-50 cursor-pointer">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order._id}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.user.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${order.totalPrice}</td>
