@@ -7,22 +7,17 @@ const SignupPage = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const [name, setName] = useState("");
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form submitted:", { 
-          firstName, 
-          lastName,
+          name,
           email, 
           password, 
-          confirmPassword, 
-          phoneNumber });
+        });
       };
 
   return (
@@ -45,36 +40,20 @@ const SignupPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none f"
               />
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last Name"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none f"
-              />
-              <input
+            <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
               />
-              <input
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Phone Number"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
-              />
-            </div>
 
             <input
                type="password"
@@ -83,15 +62,6 @@ const SignupPage = () => {
               placeholder="Password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
             />
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm Password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
-            />
-
-
             <button
               type="submit"
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer"
