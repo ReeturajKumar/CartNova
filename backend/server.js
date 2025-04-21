@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const connectDB = require("./config/db");
 const userRoute = require("./routes/userRoute");
+const productRoute = require("./routes/productRoute");
 
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 
 // API Routes
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/products", productRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

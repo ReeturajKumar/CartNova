@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-
+// chek user is authenticate 
 const protectRouter = async (req, res, next) => {
   let token;
 
@@ -30,4 +30,15 @@ const protectRouter = async (req, res, next) => {
   }
 };
 
-module.exports = { protectRouter };
+
+// check the role of user 
+const admin = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    res.status(403);
+    throw new Error("Not authorized as an admin");
+  }
+};
+
+module.exports = { protectRouter,admin };
