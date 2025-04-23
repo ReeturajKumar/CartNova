@@ -18,6 +18,10 @@ const checkOutItemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  quantity: {
+    type: Number,
+    required: true,
+  }
 }, {_id: false}
 );
 
@@ -27,7 +31,7 @@ const checkOutSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  checkOutItems: [checkOutItemSchema],
+  checkoutItems: [checkOutItemSchema],
   shippingAddress: {
     address: {
       type: String,
