@@ -9,6 +9,7 @@ const cartRoute = require("./routes/cartRoute");
 const checkoutRoute = require("./routes/checkOutRoute");
 const orderRoute = require("./routes/orderRoute");
 const uploadRoute = require("./routes/uploadRoute");
+const subscribeRoute = require("./routes/subscriberRoute");
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/api/v1/cart", cartRoute);
 app.use("/api/v1/checkout", checkoutRoute);
 app.use("/api/v1/orders", orderRoute);
 app.use("/api/v1/upload", uploadRoute);
+app.use("/api/v1/subscribe", subscribeRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
