@@ -10,6 +10,7 @@ const checkoutRoute = require("./routes/checkOutRoute");
 const orderRoute = require("./routes/orderRoute");
 const uploadRoute = require("./routes/uploadRoute");
 const subscribeRoute = require("./routes/subscriberRoute");
+const adminRoute = require("./routes/adminRoute");
 
 dotenv.config();
 
@@ -33,6 +34,11 @@ app.use("/api/v1/checkout", checkoutRoute);
 app.use("/api/v1/orders", orderRoute);
 app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/subscribe", subscribeRoute);
+
+
+
+// Admin Routes
+app.use("/api/v1/admin", adminRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
