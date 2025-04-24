@@ -6,6 +6,7 @@ import cheeckoutReducer from "./slice/checkOutSlice";
 import orderReducer from "./slice/orderSlice";
 import adminReducer from "./slice/adminSlice";
 import adminProductReducer from "./slice/adminProductSllice";
+import adminOrderReducer from "./slice/adminOrderSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     checkout: cheeckoutReducer,
     order: orderReducer,
     admin: adminReducer,
-    adminProduct: adminProductReducer
+    adminProduct: adminProductReducer,
+    adminOrder: adminOrderReducer
   },
 });
 

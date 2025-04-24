@@ -1,34 +1,29 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import img1 from "../../assets/N1.jpg";
-import img2 from "../../assets/N2.jpg";
-import img3 from "../../assets/N3.jpg";
-import img4 from "../../assets/N4.jpeg";
-import img5 from "../../assets/N5.jpg";
-import img6 from "../../assets/N6.jpg";
-import img7 from "../../assets/N7.jpg";
-import img8 from "../../assets/N8.webp";
-import img9 from "../../assets/N9.jpg";
-import img10 from "../../assets/N10.jpg";
+import axios from "axios";
 
 const NewArrivals = () => {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const newArrivals = [
-    { _id: 1, name: "Stylish Jacket", price: 1000, images: [{ url: img1 }] },
-    { _id: 2, name: "Stylish Shirt", price: 1000, images: [{ url: img2 }] },
-    { _id: 3, name: "Stylish Jeans", price: 1000, images: [{ url: img3 }] },
-    { _id: 4, name: "Trendy T-Shirt", price: 1000, images: [{ url: img4 }] },
-    { _id: 5, name: "Stylish Sneakers", price: 1000, images: [{ url: img5 }] },
-    { _id: 6, name: "Trendy Sunglasses", price: 500, images: [{ url: img6 }] },
-    { _id: 7, name: "Classic Hat", price: 700, images: [{ url: img7 }] },
-    { _id: 8, name: "Elegant Watch", price: 1200, images: [{ url: img8 }] },
-    { _id: 9, name: "Casual Hoodie", price: 900, images: [{ url: img9 }] },
-    { _id: 10, name: "Leather Belt", price: 600, images: [{ url: img10 }] },
-  ];
+  const [newArrivals, setNewArrivals] = useState([]);
+
+  useEffect(() => {
+    const fetchNewArrivals = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/products/new-arrival`
+        )
+        setNewArrivals(response.data);
+      } catch (error) {
+        console.error("Error fetching new arrivals:", error);
+      }
+    };
+
+    fetchNewArrivals();
+  }, []);
 
   const handleScroll = (direction) => {
     if (scrollRef.current) {
@@ -53,7 +48,7 @@ const NewArrivals = () => {
     scrollRef.current?.addEventListener("scroll", checkScrollPosition);
     return () =>
       scrollRef.current?.removeEventListener("scroll", checkScrollPosition);
-  }, []);
+  }, [newArrivals]);
 
   return (
     <section className="max-w-7xl mx-auto px-4">
