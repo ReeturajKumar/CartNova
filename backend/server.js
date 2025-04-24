@@ -11,6 +11,7 @@ const orderRoute = require("./routes/orderRoute");
 const uploadRoute = require("./routes/uploadRoute");
 const subscribeRoute = require("./routes/subscriberRoute");
 const adminRoute = require("./routes/adminRoute");
+const adminproductRoute = require("./routes/productAdminRoute");
 
 dotenv.config();
 
@@ -38,7 +39,8 @@ app.use("/api/v1/subscribe", subscribeRoute);
 
 
 // Admin Routes
-app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/admin/users", adminRoute);
+app.use("/api/v1/admin/products", adminproductRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
