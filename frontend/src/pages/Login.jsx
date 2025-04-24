@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { FaFacebookF, FaGoogle, FaApple } from "react-icons/fa";
 import img1 from "../assets/L1.avif";
 import { Link } from "react-router-dom";
+import {login} from "../redux/slice/authSlice"
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", { email, password });
+    dispatch(login({email, password}));
   };
   return (
     <div className="min-h-screen flex items-center justify-center ">

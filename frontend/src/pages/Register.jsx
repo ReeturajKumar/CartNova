@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { FaFacebookF, FaGoogle, FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import img1 from '../assets/L2.avif'
+import img1 from "../assets/L2.avif";
+import { register } from "../redux/slice/authSlice";
+import { useDispatch } from "react-redux";
 
 const SignupPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted:", { 
-          name,
-          email, 
-          password, 
-        });
-      };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(register({ name, email, password }));
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center pt-16">
@@ -36,29 +33,32 @@ const SignupPage = () => {
         <div className="p-10 flex flex-col justify-center h-full">
           <div className="mb-6">
             <h1 className="text-3xl font-bold mb-2">Create Your Account</h1>
-            <p className="text-gray-500">Join our community and start your shopping experience with personalized deals, order tracking, and more!</p>
+            <p className="text-gray-500">
+              Join our community and start your shopping experience with
+              personalized deals, order tracking, and more!
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Name"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none f"
-              />
             <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
-              />
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none f"
+            />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
+            />
 
             <input
-               type="password"
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
             />
@@ -70,7 +70,13 @@ const SignupPage = () => {
             </button>
 
             <p className="text-center text-sm">
-              Already have an account? <Link to="/login" className="text-slate-950 font-medium hover:underline">Login</Link>
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-slate-950 font-medium hover:underline"
+              >
+                Login
+              </Link>
             </p>
           </form>
 
@@ -81,16 +87,16 @@ const SignupPage = () => {
           </div>
 
           <div className="flex gap-4 justify-center">
-                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-                        <FaFacebookF className="text-gray-900" />
-                      </button>
-                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-                        <FaGoogle className="text-gray-900" />
-                      </button>
-                      <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
-                        <FaApple className="text-gray-900" />
-                      </button>
-                    </div>
+            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+              <FaFacebookF className="text-gray-900" />
+            </button>
+            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+              <FaGoogle className="text-gray-900" />
+            </button>
+            <button className="p-3 border rounded-lg hover:cursor-not-allowed opacity-50">
+              <FaApple className="text-gray-900" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
