@@ -1,74 +1,36 @@
 import React, { useEffect, useState } from "react";
-import img1 from "../../assets/BS1.avif";
-import img2 from "../../assets/BS2.jpg";
-import img3 from "../../assets/Bs3.jpg";
-import img4 from "../../assets/RP1.jpeg";
-import img5 from "../../assets/RP2.jpeg";
-import img6 from "../../assets/RP3.avif";
-import img7 from "../../assets/RP4.avif";
 import { toast } from "sonner";
 import ProductGrid from "./ProductGrid";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductDetails, fetchSimilarProducts } from "../../redux/slice/productsSlice";
+import { addToCart } from "../../redux/slice/cartSlice";
 
-const selectedProduct = {
-  name: "Men's Cotton Slim Fit T-Shirt",
-  size: ["S", "M", "L", "XL"],
-  color: ["Red", "Black"],
-  brand: "H&M",
-  material: "Cotton",
-  quantity: 1,
-  price: 3000,
-  orignalPrice: 4000,
-  image: [
-    { url: img1, alt: "Shirt" },
-    { url: img2, alt: "Shirt" },
-    { url: img3, alt: "Shirt" },
-  ],
-  desc: "Redefine your style with our premium cotton shirt, crafted for those who appreciate comfort and sophistication. Designed with a modern fit, this shirt offers a perfect balance between smart and casual. The breathable, lightweight fabric ensures all-day ease, while the fine stitching guarantees durability.",
-};
-
-const similarProducts = [
-  {
-    _id: 1,
-    name: "Stylish Jacket",
-    price: 10000,
-    images: [{ url: img4 }],
-    discountPrice: 5000,
-  },
-  {
-    _id: 2,
-    name: "Stylish Pant",
-    price: 10000,
-    images: [{ url: img5 }],
-    discountPrice: 5000,
-  },
-  {
-    _id: 3,
-    name: "Stylish Jeans",
-    price: 10000,
-    images: [{ url: img6 }],
-    discountPrice: 5000,
-  },
-  {
-    _id: 4,
-    name: "Stylish Shirt",
-    price: 10000,
-    images: [{ url: img7 }],
-    discountPrice: 5000,
-  },
-];
-
-const ProductDetails = () => {
+const ProductDetails = ({ productId }) => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { selectedProduct, loading, error, similarProducts } = useSelector((state) => state.products);
+  const { user, guestId } = useSelector((state) => state.auth);
   const [mainImage, setMainImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const productFetchId = productId || id;
+
   useEffect(() => {
-    if (selectedProduct?.image?.length > 0) {
-      setMainImage(selectedProduct.image[0].url);
+    if (productFetchId) {
+      dispatch(fetchProductDetails(productFetchId));
+      dispatch(fetchSimilarProducts({ id: productFetchId }));
     }
-  }, []);
+  }, [dispatch, productFetchId]);
+
+  useEffect(() => {
+    if (selectedProduct?.images?.length > 0) {
+      setMainImage(selectedProduct.images[0].url);
+    }
+  }, [selectedProduct]);
 
   const handlesetQuantity = (value) => {
     if (value === "plus") setQuantity((prev) => prev + 1);
@@ -80,12 +42,38 @@ const ProductDetails = () => {
       toast.error("Please select size and color", { duration: 1000 });
       return;
     }
+  
     setIsButtonDisabled(true);
-    setTimeout(() => {
-      toast.success("Product added to cart", { duration: 1000 });
-      setIsButtonDisabled(false);
-    }, 500);
+  
+    const payload = {
+      productId: productFetchId,
+      quantity,
+      size: selectedSize,
+      color: selectedColor,
+      guestId,
+      userId: user?._id,
+    };
+  
+  
+    dispatch(addToCart(payload))
+      .unwrap()
+      .then(() => {
+        toast.success("Product added to cart", { duration: 1000 });
+      })
+      .catch((error) => {
+        toast.error(error.message || "Something went wrong!", { duration: 1000 });
+      })
+      .finally(() => {
+        setIsButtonDisabled(false);
+      });
   };
+  
+  
+  
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!selectedProduct) return <p>Product not found</p>;
 
   return (
     <div className="p-4 sm:p-6">
@@ -93,13 +81,13 @@ const ProductDetails = () => {
         <div className="flex flex-col md:flex-row">
           {/* Left Section - Thumbnails */}
           <div className="hidden md:flex flex-col space-y-4 mr-6">
-            {selectedProduct.image.map((image, index) => (
+            {selectedProduct?.images?.map((image, index) => (
               <img
                 key={index}
                 src={image.url}
-                alt={image.alt}
+                alt={image.altText}
                 className={`w-20 h-20 object-cover rounded-lg cursor-pointer ${
-                  mainImage === image.url ? "border-5 border-black" : ""
+                  mainImage === image.url ? "border-4 border-black" : ""
                 }`}
                 onClick={() => setMainImage(image.url)}
               />
@@ -111,7 +99,7 @@ const ProductDetails = () => {
             <div className="relative w-full h-auto sm:h-[500px] md:h-[850px] lg:h-[700px] overflow-hidden rounded-lg group">
               <img
                 src={mainImage}
-                alt={selectedProduct.image[0].alt}
+                alt={selectedProduct?.images?.[0]?.altText || "Product image"}
                 className="w-full h-full object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-105 cursor-pointer"
               />
             </div>
@@ -119,13 +107,13 @@ const ProductDetails = () => {
 
           {/* Mobile Thumbnails */}
           <div className="md:hidden flex overflow-x-auto space-x-4 mt-4">
-            {selectedProduct.image.map((image, index) => (
+            {selectedProduct?.images?.map((image, index) => (
               <img
                 key={index}
                 src={image.url}
-                alt={image.alt}
+                alt={image.altText}
                 className={`w-16 h-16 object-cover rounded-lg cursor-pointer ${
-                  mainImage === image.url ? "border-5 border-black" : ""
+                  mainImage === image.url ? "border-4 border-black" : ""
                 }`}
                 onClick={() => setMainImage(image.url)}
               />
@@ -139,29 +127,27 @@ const ProductDetails = () => {
             </h1>
 
             <p className="text-md sm:text-lg text-gray-600 line-through">
-              {selectedProduct.orignalPrice &&
-                `$${selectedProduct.orignalPrice}`}
+              {selectedProduct?.discountPrice && `$${selectedProduct.price}`}
             </p>
 
             <p className="text-lg sm:text-2xl font-semibold text-gray-700 mb-3">
-              ${selectedProduct.price}
+              ${selectedProduct.discountPrice || selectedProduct.price}
             </p>
 
             <p className="text-sm sm:text-base text-gray-600 mb-4">
-              {selectedProduct.desc}
+              {selectedProduct.description}
             </p>
 
+            {/* Color Selection */}
             <div className="mb-4">
               <p className="text-gray-700 font-semibold">Color:</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                {selectedProduct.color.map((color) => (
+                {selectedProduct?.colors?.map((color) => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
                     className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border cursor-pointer transition ${
-                      selectedColor === color
-                        ? "border-2 border-gray-400"
-                        : "border-transparent"
+                      selectedColor === color ? "border-2 border-black" : "border-transparent"
                     }`}
                     style={{ backgroundColor: color.toLowerCase() }}
                   />
@@ -169,17 +155,16 @@ const ProductDetails = () => {
               </div>
             </div>
 
+            {/* Size Selection */}
             <div className="mb-4">
               <p className="text-gray-700 font-semibold">Size:</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                {selectedProduct.size.map((size) => (
+                {selectedProduct?.sizes?.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
                     className={`border px-2 sm:px-4 py-1 sm:py-2 rounded-md cursor-pointer transition ${
-                      selectedSize === size
-                        ? "bg-black text-white"
-                        : "bg-gray-200 text-gray-700"
+                      selectedSize === size ? "bg-black text-white" : "bg-gray-200 text-gray-700"
                     }`}
                   >
                     {size}
@@ -188,6 +173,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
+            {/* Quantity Control */}
             <div className="mb-6">
               <p className="text-gray-700 font-semibold">Quantity:</p>
               <div className="flex items-center space-x-2 mt-2">
@@ -197,9 +183,7 @@ const ProductDetails = () => {
                 >
                   -
                 </button>
-                <span className="text-gray-700 text-base sm:text-lg">
-                  {quantity}
-                </span>
+                <span className="text-gray-700 text-base sm:text-lg">{quantity}</span>
                 <button
                   className="bg-gray-200 px-3 sm:px-4 py-2 rounded-md cursor-pointer"
                   onClick={() => handlesetQuantity("plus")}
@@ -209,6 +193,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
+            {/* Add to Cart */}
             <button
               onClick={handleAddToCart}
               disabled={isButtonDisabled}

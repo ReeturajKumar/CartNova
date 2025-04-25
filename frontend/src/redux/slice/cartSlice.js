@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const loadCardFromStorage = () => {
+const loadCartFromStorage = () => {
   const storedCart = localStorage.getItem("cart");
   return storedCart ? JSON.parse(storedCart) : { products: [] };
 };
+
 
 // save cart to local storage
 const saveCartToStorage = (cart) => {
@@ -34,12 +35,9 @@ const fetchCart = createAsyncThunk(
 );
 
 // add item to cart
-const addToCart = createAsyncThunk(
+export const addToCart = createAsyncThunk(
   "cart/addToCart",
-  async (
-    { productId, quantity, size, color, guestId, userId },
-    { rejectWithValue }
-  ) => {
+  async ({ productId, quantity, size, color, guestId, userId }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/cart/add-cart`,
@@ -52,6 +50,7 @@ const addToCart = createAsyncThunk(
     }
   }
 );
+
 
 // update cart
 const updateCart = createAsyncThunk(
@@ -120,7 +119,7 @@ const mergeCart = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    cart: loadCardFromStorage(),
+    cart: loadCartFromStorage(),
     loading: false,
     error: null,
   },
@@ -204,5 +203,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart} = cartSlice.actions;
 export default cartSlice.reducer;

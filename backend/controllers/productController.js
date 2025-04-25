@@ -189,9 +189,13 @@ const filterProducts = async (req, res) => {
 // Best Seller products
 const bestSellers = async (req, res) => {
   try {
-    const bestSellers = await Product.findOne().sort({ rating: -1 });
-    if (bestSellers) {
-      res.status(200).json(bestSellers);
+    const product = await Product.findOne().sort({ rating: -1 });
+
+    if (product) {
+      if (!Array.isArray(product.images)) {
+        product.images = [];
+      }
+      res.status(200).json(product);
     } else {
       res.status(404).json({ error: "Best Sellers not found" });
     }
@@ -199,7 +203,8 @@ const bestSellers = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
+
 
 
 // New Arrivals products
