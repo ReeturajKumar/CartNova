@@ -298,4 +298,26 @@ const createProductReview = async (req, res) => {
   }
 };
 
-module.exports = { createProducts, updateProduct, deleteProduct,filterProducts, singleProduct, similarProducts, bestSellers, newArrivals, createProductReview };
+
+// fetching review
+// Get all reviews for a product
+const getProductReviews = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    // Assuming you have a Product model with reviews embedded
+    const product = await Product.findById(productId).select('reviews');
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ reviews: product.reviews });
+  } catch (error) {
+    console.error('Error fetching product reviews:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+module.exports = { createProducts, updateProduct, deleteProduct,filterProducts, singleProduct, similarProducts, bestSellers, newArrivals, createProductReview, getProductReviews };

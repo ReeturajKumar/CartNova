@@ -209,10 +209,36 @@ const mergeCart = async (req, res) => {
 }
 
 
+// clear cart (guest & login user)
+const clearCart = async (req, res) => {
+  const { guestId, userId } = req.body;
+
+  try {
+    if (userId) {
+      await Cart.findOneAndUpdate(
+        { user: userId },
+        { products: [] }
+      );
+    } else if (guestId) {
+      await Cart.findOneAndUpdate(
+        { guestId },
+        { products: [] }
+      );
+    }
+    res.status(200).json({ message: "Cart cleared successfully" });
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).json({ message: "Failed to clear cart" });
+  }
+};
+
+
+
 module.exports = {
   addToCart,
   updateCart,
   deleteFromCart,
   getAllCart,
-  mergeCart
+  mergeCart,
+  clearCart
 };
