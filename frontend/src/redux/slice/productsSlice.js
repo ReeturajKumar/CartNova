@@ -57,6 +57,17 @@ export const fetchSimilarProducts = createAsyncThunk("products/fetchSimilarProdu
   return response.data;
 });
 
+export const submitReview = createAsyncThunk(
+  "products/submitReview",
+  async (reviewData, { rejectWithValue }) => {
+    try {
+      return reviewData;
+    } catch (error) {
+      return rejectWithValue("Something went wrong!");
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
@@ -162,6 +173,20 @@ const productsSlice = createSlice({
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(submitReview.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitReview.fulfilled, (state, action) => {
+        state.loading = false;
+        if (state.selectedProduct && state.selectedProduct.reviews) {
+          state.selectedProduct.reviews.push(action.payload);
+        }
+      })
+      .addCase(submitReview.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
