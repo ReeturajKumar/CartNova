@@ -1,46 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrderDetails } from "../redux/slice/orderSlice";
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
-  const [orderDetails, setOrderDetails] = useState(null);
+  const dispatch = useDispatch();
+
+  const { orderDetails, loading, error } = useSelector((state) => state.orders);
 
   useEffect(() => {
-    const mockOrderDetails = {
-      _id: id,
-      createdAt: new Date(),
-      isPaid: true,
-      isDelivered: false,
-      shippingAddress: { city: "Delhi", country: "India" },
-      shippingMethood: "Standard",
-      paymentMethood: "PayPal",
-      orderItems: [
-        {
-          productId: "1234",
-          name: "Product 1",
-          size: "M",
-          color: "Red",
-          quantity: 1,
-          price: 300,
-          image: "https://picsum.photos/200?random=1",
-        },
-        {
-          productId: "1235",
-          name: "Product 2",
-          size: "M",
-          color: "Blue",
-          quantity: 1,
-          price: 300,
-          image: "https://picsum.photos/200?random=2",
-        },
-      ],
-      totalPrice: 600,
-    };
-    setOrderDetails(mockOrderDetails);
-  }, [id]);
+    dispatch(fetchOrderDetails(id));
+  }, [dispatch, id]);
 
-  if (!orderDetails)
-    return <p className="text-center py-10">No order details found.</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
+  if (!orderDetails || !orderDetails.orderItems) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-500">Loading order details...</p>
+      </div>
+    );
+  }
 
   const getStatusBadge = () => {
     return (
@@ -105,8 +100,10 @@ const OrderDetailsPage = () => {
               </thead>
               <tbody>
                 {orderDetails.orderItems.map((item) => (
-              <tr key={item.productId} className="border-t border-gray-300 hover:bg-gray-50">
-
+                  <tr
+                    key={item.productId}
+                    className="border-t border-gray-300 hover:bg-gray-50"
+                  >
                     <td className="px-6 py-4 flex items-center">
                       <img
                         src={item.image}
@@ -154,15 +151,27 @@ const OrderDetailsPage = () => {
               </span>
             </p>
 
+            <p className="text-sm mt-1">
+            Delivery Date → {new Date(orderDetails.createdAt).toLocaleDateString()}
+            </p>
+
+
             {/* Address, Method, Payment */}
             <p className="text-sm">
-              {orderDetails.shippingAddress.city},{" "}
-              {orderDetails.shippingAddress.country}
+              Location →{" "}
+              {`${orderDetails.shippingAddress.city}, ${orderDetails.shippingAddress.country}`
+                .length > 10
+                ? `${orderDetails.shippingAddress.city}, ${orderDetails.shippingAddress.country}`.slice(
+                    0,
+                    10
+                  ) + "..."
+                : `${orderDetails.shippingAddress.city}, ${orderDetails.shippingAddress.country}`}
             </p>
+
             <p className="text-sm mt-1">
-              Method: {orderDetails.shippingMethood}
+              {/* Method: {orderDetails.shippingMethod} */}
             </p>
-            <p className="text-sm">Payment: {orderDetails.paymentMethood}</p>
+            <p className="text-sm">Payment → {orderDetails.paymentMethod}</p>
 
             {/* Delivery Status */}
             <div className="mt-2">{getStatusBadge()}</div>

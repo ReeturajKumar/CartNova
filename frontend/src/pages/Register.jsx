@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaApple } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img1 from "../assets/L2.avif";
 import { register } from "../redux/slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import { mergeCart } from "../redux/slice/cartSlice";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +13,27 @@ const SignupPage = () => {
   const [name, setName] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {user,guestId} = useSelector((state) => state.auth);
+  const {cart} = useSelector((state) => state.cart);
+
+
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("/checkout");
+
+  useEffect(() => {
+    if (user) {
+      toast.success("Register successfully")
+      if(cart?.products.length > 0 && guestId) {
+        dispatch(mergeCart({guestId, user})).then (() => {
+          navigate(isCheckoutRedirect ? "/checkout" : redirect);
+        });
+      } else {
+        navigate(isCheckoutRedirect ? "/checkout" : redirect);
+      }
+    }
+  }, [user, guestId, cart, dispatch, navigate, isCheckoutRedirect, redirect]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +87,7 @@ const SignupPage = () => {
             />
             <button
               type="submit"
+              
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer"
             >
               Create account
@@ -72,7 +96,7 @@ const SignupPage = () => {
             <p className="text-center text-sm">
               Already have an account?{" "}
               <Link
-                to="/login"
+                to={`/login?redirect=${encodeURIComponent(redirect)}`}
                 className="text-slate-950 font-medium hover:underline"
               >
                 Login

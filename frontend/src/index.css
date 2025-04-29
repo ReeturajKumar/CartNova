@@ -6,10 +6,9 @@
   font-style: normal;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
-
 
 @keyframes scroll {
   0% {
@@ -41,11 +40,17 @@ html{
   scrollbar-width: none;  /* Hide scrollbar for Firefox */
 }
 
-/* styles/globals.css or wherever you import your global styles */
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* 👇 Add this */
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
 }

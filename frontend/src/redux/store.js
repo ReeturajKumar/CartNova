@@ -14,7 +14,7 @@ const store = configureStore({
     products:productsReducer,
     cart:cartReducer,
     checkout: cheeckoutReducer,
-    order: orderReducer,
+    orders: orderReducer,
     admin: adminReducer,
     adminProduct: adminProductReducer,
     adminOrder: adminOrderReducer

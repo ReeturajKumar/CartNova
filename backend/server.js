@@ -13,6 +13,7 @@ const subscribeRoute = require("./routes/subscriberRoute");
 const adminRoute = require("./routes/adminRoute");
 const adminproductRoute = require("./routes/productAdminRoute");
 const adminOrderRoute = require("./routes/adminOrderRoute");
+const chatRoute = require("./routes/chatRoute");
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/v1/checkout", checkoutRoute);
 app.use("/api/v1/orders", orderRoute);
 app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/subscribe", subscribeRoute);
+app.use('/api/v1/chat', chatRoute);
 
 
 

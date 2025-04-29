@@ -35,7 +35,7 @@ const GenderCollection = () => {
     Discover chic and trendy fashion designed for modern women.
   </p>
   <Link
-    to="/collections/all?gender=women"
+    to="/collection/all?gender=Women"
     className="text-gray-900 text-sm sm:text-base font-medium hover:underline"
   >
     Shop Women's Collection →
@@ -61,7 +61,7 @@ const GenderCollection = () => {
       Elevate your wardrobe with styles crafted for confidence.
     </p>
     <Link
-      to="/collections/all?gender=men"
+      to="/collection/all?gender=Men"
       className="text-gray-900 text-sm sm:text-base font-medium hover:underline"
     >
       Shop Men's Collection →

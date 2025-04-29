@@ -32,7 +32,7 @@ export const fetchOrderDetails = createAsyncThunk("order/fetchOrderDetails", asy
 
 
 const orderSlice = createSlice({
-  name: "order",
+  name: "orders",
   initialState: {
     orders: [],
     totalOrders: 0,

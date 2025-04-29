@@ -3,16 +3,22 @@ import { FaBoxOpen, FaClipboardList, FaStore, FaUser } from 'react-icons/fa'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { MdAdminPanelSettings } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slice/authSlice';
+import { clearCart } from '../../redux/slice/cartSlice';
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
+    dispatch(logout());
+    dispatch(clearCart());
     navigate('/');
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-white shadow-lg flex flex-col justify-between p-6 z-50">
+    <div className="fixed left-0 top-0 h-screen w-64 bg-white shadow-lg flex flex-col justify-between p-6 z-50">
       <div>
         <div className="mb-6">
           <Link to="/admin-panel" className="text-2xl font-bold">

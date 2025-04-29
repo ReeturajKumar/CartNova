@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUser, FaTag } from 'react-icons/fa';
 import img1 from '../assets/U1.png';
 import MyOrdersPage from './MyOrdersPage';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/slice/authSlice';
+import { clearCart } from '../redux/slice/cartSlice';
 
 const ProfileDashboard = () => {
+  const {user} = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('personal');
+
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(clearCart());
+    navigate('/login');
+  };
 
   return (
     <div className="flex flex-col lg:flex-row p-4 sm:p-6 lg:p-10 gap-4">
@@ -12,7 +33,7 @@ const ProfileDashboard = () => {
       <div className="w-full lg:w-72 bg-white shadow-sm p-4 rounded-lg">
         <div className="text-center mb-6">
           <img src={img1} className="w-20 h-20 rounded-full mx-auto" alt="" />
-          <h2 className="mt-2 text-lg font-semibold text-gray-800">Hello, Reeturaj Kumar</h2>
+          <h2 className="mt-2 text-lg font-semibold text-gray-800">Hello, {user?.name}</h2>
         </div>
 
         <nav className="space-y-4">
@@ -45,7 +66,18 @@ const ProfileDashboard = () => {
           </div>
 
           <div className="pt-6">
-            <button className="w-full bg-black text-white py-2 rounded-md font-semibold hover:bg-gray-800 transition duration-300 text-sm">
+           {user && user.role === 'admin' && (
+              <button 
+              className="w-full bg-black text-white py-2 rounded-md font-semibold hover:bg-gray-800 transition duration-300 text-sm">
+                <Link to="/admin-panel">Admin Panel</Link>
+              </button>
+           )}
+          </div>
+
+          <div className="pt-6">
+            <button 
+            onClick={handleLogout}
+            className="w-full bg-black text-white py-2 rounded-md font-semibold hover:bg-gray-800 transition duration-300 text-sm">
               Log Out
             </button>
           </div>
@@ -61,41 +93,22 @@ const ProfileDashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+              <div className='md:col-span-2'>
                 <label className="text-sm text-gray-500">First Name</label>
                 <input
                   type="text"
-                  value="Reeturaj"
+                  value={user?.name}
                   disabled
                   className="w-full mt-1 border border-gray-300 rounded-md p-2 bg-gray-100 text-sm"
                 />
               </div>
 
-              <div>
-                <label className="text-sm text-gray-500">Last Name</label>
-                <input
-                  type="text"
-                  value="Kumar"
-                  disabled
-                  className="w-full mt-1 border border-gray-300 rounded-md p-2 bg-gray-100 text-sm"
-                />
-              </div>
 
               <div className="md:col-span-2">
                 <label className="text-sm text-gray-500">Email Address</label>
                 <input
                   type="email"
-                  value="reeturajvats587@gmail.com"
-                  disabled
-                  className="w-full border border-gray-300 rounded-md p-2 bg-gray-100 text-sm"
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="text-sm text-gray-500">Mobile Number</label>
-                <input
-                  type="text"
-                  value="+916299045761"
+                  value={user?.email}
                   disabled
                   className="w-full border border-gray-300 rounded-md p-2 bg-gray-100 text-sm"
                 />

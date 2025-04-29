@@ -20,6 +20,8 @@ import OrderManagement from "./components/Admin/OrderManagement";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
+import Chatbot from "./components/Chatbot/Chatbot";  // Correct the import for JSX
 
 const App = () => {
   return (
@@ -41,7 +43,7 @@ const App = () => {
           </Route>
           <Route>
             {/* admin layout */}
-            <Route path="/admin-panel" element={<AdminLayout />}>
+            <Route path="/admin-panel" element={<ProtectedRoute role={"admin"}><AdminLayout /></ProtectedRoute>}>
               <Route index element={<AdminHomePage />} />
               <Route path="users" element={<UserManagement />} />
               <Route path="products" element={<ProductManagemnt />} />
@@ -50,6 +52,7 @@ const App = () => {
             </Route>
           </Route>
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </Provider>
   );

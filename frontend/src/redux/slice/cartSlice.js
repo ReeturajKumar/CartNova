@@ -93,7 +93,7 @@ const removeFromCart = createAsyncThunk(
 
 
 // merge cart
-const mergeCart = createAsyncThunk(
+export const mergeCart = createAsyncThunk(
   "cart/mergeCart",
   async ({ guestId, user }, { rejectWithValue }) => {
     try {
@@ -125,9 +125,14 @@ const cartSlice = createSlice({
   },
   reducers: {
     clearCart: (state) => {
-      state.cart = { products: [] };
+      state.cart = {
+        products: [],
+        totalPrice: 0,
+        userId: null,
+      };
       localStorage.removeItem("cart");
     },
+    
   },
   extraReducers: (builder) => {
     builder
@@ -203,5 +208,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart} = cartSlice.actions;
+export const { clearCart } = cartSlice.actions;
+export { removeFromCart, updateCart };
 export default cartSlice.reducer;

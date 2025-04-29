@@ -1,52 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  CheckCircle2,
-  MapPin,
-  Clock4,
-  ArrowRight,
-  PackageCheck,
-} from "lucide-react";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {CheckCircle2,MapPin,Clock4,ArrowRight,PackageCheck} from "lucide-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from "../redux/slice/cartSlice";
+import axios from "axios";
 
-const checkout = {
-  _id: "123456789",
-  createdAt: new Date(),
-  checkoutItems: [
-    {
-      productId: "1234",
-      name: "Product 1",
-      size: "M",
-      color: "Red",
-      quantity: 1,
-      price: 300,
-      image: "https://picsum.photos/200?random=1",
-    },
-    {
-      productId: "1235",
-      name: "Product 2",
-      size: "M",
-      color: "Blue",
-      quantity: 1,
-      price: 300,
-      image: "https://picsum.photos/200?random=2",
-    },
-  ],
-  shippingAddress: {
-    address: "123 Main St",
-    city: "New York",
-    state: "NY",
-    zipCode: "10001",
-    country: "USA",
-  },
-};
 
 const OrderConfirmation = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {checkout} = useSelector((state) => state.checkout);
+
+
+  useEffect(() => {
+    const clearCartAfterOrder = async () => {
+      try {
+        if (checkout && checkout._id) {
+          await axios.delete(`${import.meta.env.VITE_BASE_URL}/cart/clear-cart`, {
+            data: {
+              guestId: localStorage.getItem("guestId"), // if guest
+              userId: JSON.parse(localStorage.getItem("userInfo"))?._id, // if user
+            }
+          });
+          dispatch(clearCart()); // Clear Redux cart
+          localStorage.removeItem("cart"); // Clear localStorage cart
+        } else {
+          navigate("/my-orders");
+        }
+      } catch (error) {
+        console.error("Error clearing cart after order", error);
+      }
+    };
+  
+    clearCartAfterOrder();
+  }, [checkout, dispatch, navigate]);
+  
+
+
 
   const calculateEstimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
+    if (isNaN(orderDate.getTime())) {
+      return "Invalid order date";
+    }
+  
     orderDate.setDate(orderDate.getDate() + 7);
-    return orderDate.toLocaleDateString();
-  }
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return orderDate.toLocaleDateString('en-US', options);
+  };
+
+  
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-10 min-h-screen">
       <div className="bg-white rounded-xl p-4 sm:p-10">

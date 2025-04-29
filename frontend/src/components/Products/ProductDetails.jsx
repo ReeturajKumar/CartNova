@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetails, fetchSimilarProducts } from "../../redux/slice/productsSlice";
 import { addToCart } from "../../redux/slice/cartSlice";
+import ProductReview from "./ProductReview";
 
 const ProductDetails = ({ productId }) => {
   const { id } = useParams();
@@ -232,6 +233,7 @@ const ProductDetails = ({ productId }) => {
             Explore similar products handpicked just for you – shop now!
           </p>
           <ProductGrid products={similarProducts} />
+          {/* <ProductReview productId={productId} /> */}
         </div>
       </div>
     </div>
