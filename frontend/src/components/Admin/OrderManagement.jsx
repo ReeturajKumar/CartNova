@@ -1,37 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { fetchAdminOrders, updateOrder } from '../../redux/slice/adminOrderSlice';
 
 const OrderManagement = () => {
-  const orders = [
-    {
-      _id: "123456781",
-      user: { name: "Reeturaj Kumar" },
-      totalPrice: 1000,
-      status: "Processing",
-    },
-    {
-      _id: "123456782",
-      user: { name: "Reeturaj Kumar" },
-      totalPrice: 1200,
-      status: "Delivered",
-    },
-    {
-      _id: "123456783",
-      user: { name: "Reeturaj Kumar" },
-      totalPrice: 1400,
-      status: "Processing",
-    },
-    {
-      _id: "123456784",
-      user: { name: "Reeturaj Kumar" },
-      totalPrice: 800,
-      status: "Delivered",
-    },
-  ];
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const {user} = useSelector((state) => state.auth);
+  const { orders, loading, error } = useSelector((state) => state.adminOrder);
+
+
+
+  useEffect(() => {
+    if(!user || user.role !== "admin") navigate("/");
+    else dispatch(fetchAdminOrders());
+  }, [dispatch, navigate, user]);
+
 
 
   const handleStatusChange = (orderId, status) => {
-    console.log(`Order ${orderId} status updated to ${status}`);
+    dispatch(updateOrder({ id: orderId, data: { status } }));
+
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -52,8 +48,8 @@ const OrderManagement = () => {
             {orders.map((order) => (
               <tr key={order._id} className="hover:bg-gray-50 transition">
                 <td className="px-6 py-4 font-mono text-sm text-gray-900">#{order._id}</td>
-                <td className="p-4">{order.user.name}</td>
-                <td className="p-4">${order.totalPrice}</td>
+                <td className="p-4">{order.user?.name}</td>
+                <td className="p-4">${order.totalPrice.toFixed(2) }</td>
                 <td className="px-6 py-4">
                   <select
                    value={order.status}

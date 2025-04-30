@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
 
     const payload = { user: { id: user._id, role: user.role } };
 
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' }, (err, token) => {
       if (err) throw err;
 
       res.status(201).json({

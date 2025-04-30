@@ -13,7 +13,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {user,guestId} = useSelector((state) => state.auth);
+  const {user,guestId,loading} = useSelector((state) => state.auth);
   const {cart} = useSelector((state) => state.cart);
 
 
@@ -87,7 +87,7 @@ const LoginPage = () => {
               type="submit"
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer"
             >
-              Login
+              {loading ? "Loading..." : "Sign In"}
             </button>
 
             <p className="text-center text-sm">

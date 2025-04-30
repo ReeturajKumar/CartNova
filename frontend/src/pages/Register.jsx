@@ -15,7 +15,7 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {user,guestId} = useSelector((state) => state.auth);
+  const {user,guestId,loading} = useSelector((state) => state.auth);
   const {cart} = useSelector((state) => state.cart);
 
 
@@ -90,7 +90,7 @@ const SignupPage = () => {
               
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer"
             >
-              Create account
+              {loading ? "Loading..." : "Create account"}
             </button>
 
             <p className="text-center text-sm">

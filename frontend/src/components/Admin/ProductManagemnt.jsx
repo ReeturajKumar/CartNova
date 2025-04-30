@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import { deleteProduct, fetchAdminProducts } from "../../redux/slice/adminProductSllice";
 
 const ProductManagement = () => {
-  const products = [
-    { _id: 1, name: "Product 1", price: 1000, sku: "SKU001" },
-    { _id: 2, name: "Product 2", price: 1500, sku: "SKU002" },
-    { _id: 3, name: "Product 3", price: 2000, sku: "SKU003" },
-    { _id: 4, name: "Product 4", price: 1200, sku: "SKU004" },
-    { _id: 5, name: "Product 5", price: 1800, sku: "SKU005" },
-    { _id: 6, name: "Product 6", price: 1100, sku: "SKU006" },
-    { _id: 7, name: "Product 7", price: 1700, sku: "SKU007" },
-    { _id: 8, name: "Product 8", price: 1600, sku: "SKU008" },
-  ];
+
+
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.adminProduct);
+
+
+
+
+  useEffect(() => {
+    dispatch(fetchAdminProducts());
+  }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
@@ -32,16 +35,26 @@ const ProductManagement = () => {
 
   const handleDelete = (id) => {
    if(window.confirm("Are you sure you want to delete this product?")){
-    console.log(`Deleting product ${id}`);
+    dispatch(deleteProduct(id));
    }
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
+      <div className="flex flex-col items-center sm:flex-row sm:justify-between mb-6">
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center sm:text-left">
         Product Management
       </h1>
+      <Link to="/admin-panel/products/product-creation">
+      <button className="w-full px-6  bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 cursor-pointer">
+        Add Product
+      </button>
+      </Link>
 
+      </div>
       {/* Responsive Table Wrapper */}
       <div className="overflow-x-auto rounded-xl bg-white">
         <table className="min-w-full text-left text-gray-900">

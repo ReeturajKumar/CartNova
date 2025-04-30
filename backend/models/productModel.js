@@ -43,7 +43,7 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   collections: {
-    type: String,
+    type: [String], // Change this from String to [String] to allow an array of collections
     required: true,
   },
   material: {

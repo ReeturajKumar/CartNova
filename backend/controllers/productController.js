@@ -5,10 +5,7 @@ const jwt = require("jsonwebtoken");
 // create product
 const createProducts = async (req, res) => {
   try {
-    const {name,description, price,discountPrice,countInStock,category,brand,sizes,colors,collections,material,gender,images,isFeatured,isPublished,tags,dimensions,weight,sku} = req.body;
-
-
-    const product = await Product.create({
+    const {
       name,
       description,
       price,
@@ -28,7 +25,30 @@ const createProducts = async (req, res) => {
       dimensions,
       weight,
       sku,
-      user: req.user._id,
+    } = req.body;
+
+    // Ensure that we're not trying to assign _id manually
+    const product = new Product({
+      name,
+      description,
+      price,
+      discountPrice,
+      countInStock,
+      category,
+      brand,
+      sizes,
+      colors,
+      collections,
+      material,
+      gender,
+      images,
+      isFeatured,
+      isPublished,
+      tags,
+      dimensions,
+      weight,
+      sku,
+      user: req.user._id, // This would be populated by the auth middleware
     });
 
     const createdProduct = await product.save();
@@ -38,7 +58,8 @@ const createProducts = async (req, res) => {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
+
 
 
 // update product
