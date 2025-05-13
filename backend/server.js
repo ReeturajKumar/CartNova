@@ -17,19 +17,7 @@ const chatRoute = require("./routes/chatRoute");
 
 dotenv.config();
 
-const allowedOrigins = ['https://cart-nova-brb3.vercel.app'];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS not allowed for this origin'));
-    }
-  },
-  credentials: true,
-}));
-
+app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 8080;
@@ -42,21 +30,21 @@ app.get("/", (req, res) => {
 });
 
 // API Routes
-app.use("/api/v1/users", userRoute);
-app.use("/api/v1/products", productRoute);
-app.use("/api/v1/cart", cartRoute);
-app.use("/api/v1/checkout", checkoutRoute);
-app.use("/api/v1/orders", orderRoute);
-app.use("/api/v1/upload", uploadRoute);
-app.use("/api/v1/subscribe", subscribeRoute);
-app.use('/api/v1/chat', chatRoute);
+app.use("/users", userRoute);
+app.use("/products", productRoute);
+app.use("/cart", cartRoute);
+app.use("/checkout", checkoutRoute);
+app.use("/orders", orderRoute);
+app.use("/upload", uploadRoute);
+app.use("/subscribe", subscribeRoute);
+app.use('/chat', chatRoute);
 
 
 
 // Admin Routes
-app.use("/api/v1/admin/users", adminRoute);
-app.use("/api/v1/admin/products", adminproductRoute);
-app.use("/api/v1/admin/orders", adminOrderRoute);
+app.use("/admin/users", adminRoute);
+app.use("/admin/products", adminproductRoute);
+app.use("/admin/orders", adminOrderRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
