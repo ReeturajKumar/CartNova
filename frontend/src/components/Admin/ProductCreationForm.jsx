@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const ProductCreationForm = () => {
   const [product, setProduct] = useState({
@@ -51,11 +52,13 @@ const ProductCreationForm = () => {
     }));
   };
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
   
     try {
-      // Step 1: Upload images to Cloudinary through your backend
       const uploadedImageUrls = [];
   
       // Ensure product.images is an array
@@ -113,7 +116,7 @@ const ProductCreationForm = () => {
       };
   
       // Step 3: Send product creation request to your backend
-      const createRes = await fetch("http://localhost:8000/api/v1/products/create-product", {
+      const createRes = await fetch(`${import.meta.env.VITE_BASE_URL}/products/create-product`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +128,7 @@ const ProductCreationForm = () => {
       const createData = await createRes.json();
   
       if (createRes.ok) {
-        alert("✅ Product created successfully!");
+        toast.success("Product created successfully!");
   
         // Reset form
         setProduct({
@@ -150,11 +153,13 @@ const ProductCreationForm = () => {
           sku: "",
         });
       } else {
-        alert("❌ Failed to create product: " + (createData.message || "Unknown error"));
+        toast.error(createData?.message || "Something went wrong while creating the product.");
       }
     } catch (error) {
       console.error("Error during product submission:", error);
-      alert("❌ Something went wrong while submitting the product.");
+      toast.error("Something went wrong while creating the product.");
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -429,12 +434,14 @@ const ProductCreationForm = () => {
 
         {/* Submit Button */}
         <div className="mt-8">
-          <button
-            type="submit"
-            className="w-full px-6  bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 cursor-pointer"
-          >
-            Submit Product
-          </button>
+         <button
+  type="submit"
+  className="w-full px-6 bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+  disabled={loading}
+>
+  {loading ? "Creating Product..." : "Create Product"}
+</button>
+
         </div>
       </form>
     </div>
