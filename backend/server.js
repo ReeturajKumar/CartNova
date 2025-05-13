@@ -17,7 +17,19 @@ const chatRoute = require("./routes/chatRoute");
 
 dotenv.config();
 
-app.use(cors());
+const allowedOrigins = ['https://cart-nova-brb3.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed for this origin'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 
 const PORT = process.env.PORT || 8080;
