@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Chatbot.css";
+import img1 from "../../assets/svgviewer-output.svg";
 
 const Chatbot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -196,11 +197,12 @@ const Chatbot = () => {
         onClick={toggleChat}
       >
         <img
-          src="https://www.svgrepo.com/show/310556/bot.svg"
-          alt="bot"
-          width="50"
-          height="50"
-        />
+  src={img1 || "https://www.svgrepo.com/show/310556/bot.svg"}
+  alt="bot"
+  width="50"
+  height="50"
+/>
+
       </div>
 
       {/* Full Chatbot Container */}
