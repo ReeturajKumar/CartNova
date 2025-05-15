@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/cartDrawer";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
+import userimg from "../../assets/U1.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -273,7 +274,7 @@ const Navbar = () => {
           <NavLink to="/profile" className="hover:text-black">
             {user ? (
               <img
-                src={"http://localhost:5173/src/assets/U1.png"}
+                src={userimg}
                 alt="User"
                 className="h-8 w-8 rounded-full object-cover border border-gray-300"
               />
