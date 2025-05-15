@@ -67,7 +67,7 @@ const ProductCreationForm = () => {
           const formData = new FormData();
           formData.append("image", file); // this must match upload.single("image")
   
-          const res = await fetch("http://localhost:8000/api/v1/upload", {
+          const res = await fetch(`${import.meta.env.VITE_BASE_URL}/upload`, {
             method: "POST",
             body: formData,
           });
