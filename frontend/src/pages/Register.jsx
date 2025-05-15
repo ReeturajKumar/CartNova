@@ -15,18 +15,18 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const {user,guestId,loading} = useSelector((state) => state.auth);
-  const {cart} = useSelector((state) => state.cart);
-
+  const { user, guestId, loading, error } = useSelector((state) => state.auth);
+  const { cart } = useSelector((state) => state.cart);
 
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("/checkout");
 
   useEffect(() => {
+    // On successful registration
     if (user) {
-      toast.success("Register successfully")
-      if(cart?.products.length > 0 && guestId) {
-        dispatch(mergeCart({guestId, user})).then (() => {
+      toast.success("Register successfully");
+      if (cart?.products.length > 0 && guestId) {
+        dispatch(mergeCart({ guestId, user })).then(() => {
           navigate(isCheckoutRedirect ? "/checkout" : redirect);
         });
       } else {
@@ -34,6 +34,20 @@ const SignupPage = () => {
       }
     }
   }, [user, guestId, cart, dispatch, navigate, isCheckoutRedirect, redirect]);
+
+useEffect(() => {
+  if (error) {
+    // error is expected to be an object like { error: "Invalid email" } or { error: "User already exists" }
+    if (error.error === "User already exists") {
+      toast.error("User already exists, please try to login");
+    } else if (error.error === "Invalid email") {
+      toast.error("Invalid email");
+    } else {
+      toast.error("Registration failed. Please try again.");
+    }
+  }
+}, [error]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,14 +82,14 @@ const SignupPage = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none f"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
             />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
             />
 
             <input
@@ -83,11 +97,10 @@ const SignupPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none "
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
             />
             <button
               type="submit"
-              
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300 hover:text-white cursor-pointer"
             >
               {loading ? "Loading..." : "Create account"}

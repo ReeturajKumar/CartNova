@@ -6,6 +6,12 @@ const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    // Basic email regex validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).send({ error: "Invalid email" });
+    }
+
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).send({ error: "User already exists" });
@@ -36,6 +42,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+
 // user login controller
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -43,12 +50,12 @@ const loginUser = async (req, res) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).send({ error: "Invalid Credentials" });
+      return res.status(404).send({ error: "User not found" });
     }
 
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(400).send({ error: "Invalid Credentials" });
+      return res.status(401).send({ error: "Invalid credentials" });
     }
 
     const payload = { user: { id: user._id, role: user.role } };
@@ -69,9 +76,10 @@ const loginUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error: "Server error" });
   }
 };
+
 
 // user profile controller
 const userProfile = async (req, res) => {
